@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>柬華職場 - 柬埔寨華人求職求才平台</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e2e5ec;
+    --text: #1a1d26;
+    --text2: #6b7185;
+    --text3: #9ca0b0;
+    --primary: #e53e3e;
+    --primary-hover: #c53030;
+    --green: #22c58b;
+    --red: #ef4455;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    width: 100%;
+    flex: 1;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo { font-size: 20px; font-weight: 700; color: var(--text); cursor: pointer; }
+  .logo span { color: var(--primary); }
+
+  .nav { display: flex; gap: 4px; }
+  .nav a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .nav a:hover { color: var(--text); background: var(--bg); }
+  .nav a.active { color: var(--primary); background: #fef2f2; }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding: 4px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .lang-btn {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .lang-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+  .lang-btn:hover:not(.active) { color: var(--text2); }
+
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn .2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 60px 0 48px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .hero h1 span { color: var(--primary); }
+  .hero p {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 520px;
+    margin: 0 auto 32px;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-btns .btn { width: auto; padding: 12px 28px; margin-top: 0; }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { background: var(--bg); }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+  }
+  .stat-box .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+  .stat-box .label { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+  /* Section title */
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  /* Job cards */
+  .job-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .job-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .job-card:hover { box-shadow: var(--shadow); border-color: var(--primary); }
+  .job-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .job-card .ml-sub {
+    font-size: 12px;
+    color: var(--text3);
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .job-card .meta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    font-size: 13px; color: var(--text2); margin-bottom: 8px;
+  }
+  .job-card .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .job-card .tags span {
+    font-size: 11px; font-weight: 500;
+    padding: 2px 8px; border-radius: 12px;
+    background: var(--bg); color: var(--text2);
+  }
+  .job-card .company { font-size: 13px; color: var(--text3); margin-bottom: 6px; }
+  .job-card .salary { font-size: 14px; font-weight: 600; color: var(--green); }
+
+  /* Search bar */
+  .search-bar {
+    display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .search-bar input, .search-bar select {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    flex: 1;
+    min-width: 160px;
+  }
+  .search-bar input:focus, .search-bar select:focus { border-color: var(--primary); }
+  .search-bar .btn { width: auto; padding: 10px 24px; margin-top: 0; }
+
+  /* Job detail modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.4);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius);
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text2);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-close:hover { background: var(--bg); }
+  .modal h2 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .modal .company { color: var(--text2); font-size: 14px; margin-bottom: 16px; }
+  .modal .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .modal .detail-item { font-size: 13px; }
+  .modal .detail-item strong { display: block; color: var(--text2); font-weight: 500; font-size: 12px; }
+  .modal .desc-text { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 20px; }
+  .modal .btn { width: 100%; }
+
+  /* How it works */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .how-step {
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+  }
+  .how-step .icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: #fef2f2;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 auto 12px;
+  }
+  .how-step h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .how-step p { font-size: 13px; color: var(--text2); }
+
+  /* Form card */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .form-card h2 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .form-card .desc { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); }
+  .field textarea { resize: vertical; min-height: 100px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: background .15s;
+    margin-top: 8px;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--primary-hover); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .form-status {
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: none;
+  }
+  .form-status.visible { display: block; }
+  .form-status.loading { background: #f0f2f7; color: var(--text2); }
+  .form-status.success { background: #e6f9f1; color: var(--green); }
+  .form-status.error { background: #fde8eb; color: var(--red); }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .badge-employer { background: #fef2f2; color: var(--primary); }
+  .badge-applicant { background: #e6f9f1; color: var(--green); }
+  .hidden-input { display: none; }
+
+  /* Auth */
+  .auth-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background .15s;
+    margin-left: 12px;
+  }
+  .auth-btn:hover { background: var(--primary-hover); }
+  .auth-btn-outline {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    margin-left: 0;
+  }
+  .auth-btn-outline:hover { background: var(--bg); color: var(--text); }
+  .auth-user {
+    display: none;
+    align-items: center; gap: 8px;
+    margin-left: 12px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .auth-user .avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .auth-user .logout-btn {
+    font-size: 12px;
+    color: var(--text3);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .auth-user .logout-btn:hover { color: var(--red); }
+
+  .auth-modal .modal { max-width: 440px; }
+  .auth-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text2);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .15s;
+  }
+  .auth-tab:hover { color: var(--text); }
+  .auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+  .auth-role-select {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .auth-role-card {
+    flex: 1;
+    padding: 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    cursor: pointer;
+    transition: all .15s;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text2);
+  }
+  .auth-role-card:hover { border-color: var(--text3); }
+  .auth-role-card.active { border-color: var(--primary); color: var(--primary); background: #fef2f2; }
+  .auth-role-card .icon { font-size: 24px; margin-bottom: 4px; display: block; }
+
+  .auth-form { display: none; }
+  .auth-form.active { display: block; }
+  .auth-form .field { margin-bottom: 14px; }
+  .auth-form .field label { font-size: 13px; }
+  .auth-form .field input { background: var(--surface); }
+  .auth-form .btn { margin-top: 4px; }
+  .auth-form .form-status { margin-top: 8px; }
+  .auth-divider {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    margin: 16px 0;
+    position: relative;
+  }
+  .auth-divider::before,
+  .auth-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 42%;
+    height: 1px;
+    background: var(--border);
+  }
+  .auth-divider::before { left: 0; }
+  .auth-divider::after { right: 0; }
+  .auth-social {
+    display: flex;
+    gap: 8px;
+  }
+  .auth-social .btn {
+    flex: 1;
+    font-size: 13px;
+    padding: 10px;
+    margin-top: 0;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .auth-social .btn:hover { background: var(--bg); }
+  .auth-switch {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 16px;
+  }
+  .auth-switch a {
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .auth-switch a:hover { text-decoration: underline; }
+
+  /* About page */
+  .about-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .about-content h2 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+  .about-content p { font-size: 14px; color: var(--text2); line-height: 1.8; margin-bottom: 16px; }
+  .about-content .contact-item { font-size: 14px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .about-content .contact-item:last-child { border-bottom: none; }
+  .about-content .contact-item strong { display: inline-block; width: 80px; color: var(--text); }
+
+  .page-header {
+    margin-bottom: 24px;
+  }
+  .page-header h1 { font-size: 26px; font-weight: 700; }
+  .page-header p { font-size: 14px; color: var(--text2); margin-top: 4px; }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text3);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  @media (max-width: 640px) {
+    .site-header { flex-direction: column; gap: 12px; padding: 12px 16px; }
+    .nav { width: 100%; justify-content: center; }
+    .nav a { font-size: 13px; padding: 6px 10px; }
+    .hero h1 { font-size: 26px; }
+    .stats { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 20px; }
+    .page-wrap { padding: 20px 16px; }
+    .search-bar input, .search-bar select { min-width: 100%; }
+    .modal .detail-grid { grid-template-columns: 1fr; }
+    .modal { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo" onclick="switchPage('home')" data-i18n="brand"></div>
+  <nav class="nav">
+    <a class="active" data-page="home" onclick="switchPage('home')" data-i18n="navHome">首頁</a>
+    <a data-page="jobs" onclick="switchPage('jobs')" data-i18n="navJobs">職缺列表</a>
+    <a data-page="post" onclick="switchPage('post')" data-i18n="navPost">刊登職缺</a>
+    <a data-page="about" onclick="switchPage('about')" data-i18n="navAbout">關於柬華</a>
+  </nav>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+    <button class="lang-btn" data-lang="km" onclick="switchLang('km')">ភាសាខ្មែរ</button>
+    <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+  </div>
+  <button class="auth-btn" id="auth-btn" onclick="openAuthModal()" data-i18n="authBtn">註冊 / 登入</button>
+  <div class="auth-user" id="auth-user">
+    <div class="avatar" id="auth-avatar">E</div>
+    <span id="auth-name">雇主</span>
+    <span class="logout-btn" onclick="logout()" data-i18n="logout">登出</span>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- ═══════════════ 首頁 ═══════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1 data-i18n="heroTitle">柬埔寨華人<br><span>求職求才</span>第一平台</h1>
+    <p data-i18n="heroDesc">全中文介面，免費刊登職缺、瀏覽工作機會<br>連接柬埔寨與華人求職者的最佳橋樑</p>
+    <div class="hero-btns">
+      <a class="btn" onclick="openAuthModal()" data-i18n="heroRegister">免費註冊</a>
+      <a class="btn btn-outline" onclick="switchPage('post')" data-i18n="heroPostJob">刊登職缺</a>
+      <a class="btn btn-outline" onclick="switchPage('jobs')" data-i18n="heroBrowse">瀏覽職缺</a>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-box">
+      <div class="num">150+</div>
+      <div class="label" data-i18n="statJobs">已刊登職缺</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">300+</div>
+      <div class="label" data-i18n="statSeekers">註冊求職者</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">50+</div>
+      <div class="label" data-i18n="statEmployers">合作雇主</div>
+    </div>
+  </div>
+
+  <div class="section-title" data-i18n="howTitle">如何使用柬華職場</div>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="icon">1</div>
+      <h3 data-i18n="how1Title">註冊帳號</h3>
+      <p data-i18n="how1Desc">雇主或求職者免費註冊，1 分鐘完成</p>
+    </div>
+    <div class="how-step">
+      <div class="icon">2</div>
+      <h3 data-i18n="how2Title">刊登或應徵</h3>
+      <p data-i18n="how2Desc">雇主刊登職缺，求職者投遞履歷</p>
+    </div>
+    <div class="how-step">
+      <div class="icon">3</div>
+      <h3 data-i18n="how3Title">快速配對</h3>
+      <p data-i18n="how3Desc">系統自動通知，縮短招募時間</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+    <div class="form-card" style="text-align:center;padding:24px;">
+      <div style="font-size:32px;margin-bottom:8px;">🏢</div>
+      <h3 style="font-size:15px;font-weight:600;margin-bottom:4px;" data-i18n="employerTitle">我是雇主</h3>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:12px;" data-i18n="employerDesc">刊登職缺、尋找人才</p>
+      <button class="btn" style="width:100%;margin-top:0;" onclick="openAuthModal()" data-i18n="employerBtn">雇主註冊</button>
+    </div>
+    <div class="form-card" style="text-align:center;padding:24px;">
+      <div style="font-size:32px;margin-bottom:8px;">👤</div>
+      <h3 style="font-size:15px;font-weight:600;margin-bottom:4px;" data-i18n="seekerTitle">我是求職者</h3>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:12px;" data-i18n="seekerDesc">瀏覽職缺、投遞履歷</p>
+      <button class="btn" style="width:100%;margin-top:0;background:var(--green);" onclick="openAuthModal()" data-i18n="seekerBtn">求職者註冊</button>
+    </div>
+  </div>
+
+  <div class="section-title">最新職缺</div>
+  <div class="job-list" id="home-job-list"></div>
+  <div style="text-align:center;margin-bottom:32px;">
+    <a class="btn btn-outline" onclick="switchPage('jobs')" data-i18n="viewAll">查看所有職缺 →</a>
+  </div>
+</div>
+
+<!-- ═══════════════ 職缺列表 ═══════════════ -->
+<div class="page" id="page-jobs">
+  <div class="page-header">
+    <h1 data-i18n="jobsTitle">職缺列表</h1>
+    <p data-i18n="jobsDesc">瀏覽柬埔寨最新華人工作機會</p>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="search-input" data-i18n="searchPlaceholder" placeholder="搜尋職缺名稱、公司…" oninput="renderJobs()">
+    <select id="filter-category" onchange="renderJobs()">
+      <option value="" data-i18n="searchCat">全部分類</option>
+      <option>餐飲服務</option>
+      <option>業務銷售</option>
+      <option>行政/客服</option>
+      <option>翻譯/教師</option>
+      <option>司機/物流</option>
+      <option>工程/技術</option>
+      <option>管理/主管</option>
+      <option>會計/財務</option>
+      <option>其他</option>
+    </select>
+    <select id="filter-location" onchange="renderJobs()">
+      <option value="" data-i18n="filterLocation">全部地點</option>
+      <option data-i18n="phnomPenh">金邊</option>
+      <option data-i18n="sihanoukville">西港</option>
+      <option data-i18n="siemReap">暹粒</option>
+      <option data-i18n="battambang">馬德望</option>
+      <option data-i18n="other">其他</option>
+    </select>
+  </div>
+
+  <div class="job-list" id="job-list-container"></div>
+  <div id="job-empty" style="display:none;text-align:center;padding:40px;color:var(--text2);font-size:14px;" data-i18n="noJobs">沒有符合條件的職缺</div>
+</div>
+
+<!-- ═══════════════ 刊登職缺 ═══════════════ -->
+<div class="page" id="page-post">
+  <div class="page-header">
+    <h1 data-i18n="postTitle">刊登職缺</h1>
+    <p data-i18n="postDesc">柬埔寨地區華人企業專用，審核後 24 小時內上架</p>
+  </div>
+
+  <div class="form-card">
+    <span class="badge badge-employer" data-i18n="postBadge">雇主刊登</span>
+    <h2 data-i18n="postFormTitle">填寫職缺資訊</h2>
+    <p class="desc" data-i18n="postFormDesc">以下資訊將公開顯示，請務必填寫正確</p>
+
+    <form data-name="post-job">
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="companyName">公司名稱</label>
+          <input type="text" name="company-name" data-i18n="companyPlaceholder" placeholder="例如：柬華貿易有限公司" required>
+        </div>
+        <div class="field">
+          <label data-i18n="industry">產業類別</label>
+          <select name="industry">
+            <option value="">請選擇</option>
+            <option>餐飲/飯店</option>
+            <option>旅遊/娛樂</option>
+            <option>地產/建築</option>
+            <option>貿易/物流</option>
+            <option>製造/工廠</option>
+            <option>金融/保險</option>
+            <option>教育/語言</option>
+            <option>醫療/美容</option>
+            <option>科技/電商</option>
+            <option>其他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="contactEmail">聯絡 Email</label>
+          <input type="email" name="contact-email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label data-i18n="contactPhone">聯絡電話</label>
+          <input type="tel" name="contact-phone" placeholder="+855 12 345 678">
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="field">
+          <label data-i18n="jobTitle">職缺名稱</label>
+          <input type="text" name="job-title" placeholder="例如：中餐廚師" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="category">分類</label>
+          <select name="category">
+            <option value="">請選擇</option>
+            <option>餐飲服務</option>
+            <option>業務銷售</option>
+            <option>行政/客服</option>
+            <option>翻譯/教師</option>
+            <option>司機/物流</option>
+            <option>工程/技術</option>
+            <option>管理/主管</option>
+            <option>會計/財務</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="location">工作地點</label>
+          <input type="text" name="location" placeholder="例如：金邊市 堆谷區">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="salaryMin">薪資下限 (USD)</label>
+          <input type="number" name="salary-min" placeholder="例如：500">
+        </div>
+        <div class="field">
+          <label data-i18n="salaryMax">薪資上限 (USD)</label>
+          <input type="number" name="salary-max" placeholder="例如：1500">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="language">語言要求</label>
+          <select name="job-language">
+            <option value="">不限</option>
+            <option>中文</option>
+            <option>英文</option>
+            <option>柬埔寨語</option>
+            <option>中英文皆可</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="plan">刊登方案</label>
+          <select name="plan">
+            <option value="">請選擇</option>
+            <option>基本（7 天）</option>
+            <option>進階（14 天）</option>
+            <option>置頂（30 天）</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="field">
+          <label data-i18n="description">職缺描述</label>
+          <textarea name="job-description" placeholder="請描述工作內容、條件要求、福利待遇等…"></textarea>
+        </div>
+      </div>
+
+      <button class="btn" type="submit" data-i18n="submitPost">送出刊登</button>
+      <div class="form-status" id="status-b"></div>
+    </form>
+  </div>
+
+  <div class="form-card">
+    <span class="badge badge-applicant" data-i18n="applyBadge">求職者投遞</span>
+    <h2 data-i18n="applyTitle">應徵職缺</h2>
+    <p class="desc" data-i18n="applyDesc">已有指定的職缺編號，直接投遞履歷</p>
+
+    <form data-name="apply-job">
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="fullName">姓名</label>
+          <input type="text" name="full-name" placeholder="您的姓名" required>
+        </div>
+        <div class="field">
+          <label data-i18n="email">Email</label>
+          <input type="email" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label data-i18n="phone">手機</label>
+          <input type="tel" name="phone" placeholder="+855 12 345 678">
+        </div>
+        <div class="field">
+          <label data-i18n="resumeUrl">履歷連結</label>
+          <input type="url" name="resume-url" placeholder="Google Drive / PDF 連結">
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="field">
+          <label data-i18n="coverNote">求職信 / 備註</label>
+          <textarea name="cover-note" placeholder="簡單自我介紹、為什麼想應徵這個職缺…"></textarea>
+        </div>
+      </div>
+
+      <input class="hidden-input" type="text" name="job-id" value="rec123456abc">
+
+      <button class="btn" type="submit" data-i18n="submitApply">送出應徵</button>
+      <div class="form-status" id="status-c"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════ 關於柬華 ═══════════════ -->
+<div class="page" id="page-about">
+  <div class="page-header">
+    <h1 data-i18n="aboutTitle">關於柬華職場</h1>
+    <p data-i18n="aboutSub">Connecting Cambodia & Chinese Talent</p>
+  </div>
+
+  <div class="about-content">
+    <h2 data-i18n="aboutMission">我們的使命</h2>
+    <p data-i18n="aboutMissionText">柬華職場是柬埔寨第一個專為華人社群打造的求職求才平台。我們致力於連結柬埔寨當地企業與華語人才，讓求職者輕鬆找到合適的工作，也讓雇主快速找到優秀的員工。</p>
+
+    <h2 data-i18n="aboutWhy">為什麼選擇柬華職場</h2>
+    <p data-i18n="aboutWhyText">全中文操作介面，降低使用門檻。無論你是來自中國、台灣、馬來西亞或新加坡的華人，還是在柬埔寨當地學習中文的求職者，都能輕鬆使用。我們提供免費刊登職缺、智能配對通知、以及即時的求職求才服務。</p>
+
+    <h2 data-i18n="aboutContact">聯絡我們</h2>
+    <div class="contact-item"><strong>Email</strong> contact@jhhuajob.com</div>
+    <div class="contact-item"><strong>電話</strong> +855 23 888 999</div>
+    <div class="contact-item"><strong>地址</strong> 金邊市 堆谷區 俄羅斯大道 168 號</div>
+    <div class="contact-item"><strong>Line</strong> @jhhuajob</div>
+    <div class="contact-item"><strong>Telegram</strong> t.me/jhhuajob</div>
+  </div>
+
+  <div class="about-content" style="text-align:center;">
+    <h2 data-i18n="aboutCTA">立即加入柬華職場</h2>
+    <p data-i18n="aboutCTADesc">無論是尋找人才還是尋找工作，我們都能幫你</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+      <button class="btn" onclick="openAuthModal()" data-i18n="heroRegister">免費註冊</button>
+      <button class="btn btn-outline" onclick="switchPage('post')">刊登職缺</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer class="footer">
+  <span data-i18n="footer">柬華職場 © 2026 — 柬埔寨華人求職求才平台</span>
+</footer>
+
+<!-- ═══════════════ 職缺詳情彈窗 ═══════════════ -->
+<div class="modal-overlay" id="job-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeJobModal()">✕</button>
+    <h2 id="modal-title"></h2>
+    <div class="company" id="modal-company"></div>
+    <div class="detail-grid">
+      <div class="detail-item"><strong data-i18n="detailLoc">地點</strong><span id="modal-location"></span></div>
+      <div class="detail-item"><strong data-i18n="detailCat">分類</strong><span id="modal-category"></span></div>
+      <div class="detail-item"><strong data-i18n="detailSal">薪資</strong><span id="modal-salary"></span></div>
+      <div class="detail-item"><strong data-i18n="detailLang">語言</strong><span id="modal-language"></span></div>
+    </div>
+    <div class="desc-text" id="modal-desc"></div>
+    <button class="btn" onclick="switchPage('post');closeJobModal();" data-i18n="applyNow">立即應徵</button>
+  </div>
+</div>
+
+<!-- ═══════════════ 註冊/登入 Modal ═══════════════ -->
+<div class="modal-overlay auth-modal" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" data-auth-tab="login" onclick="switchAuthTab('login')" data-i18n="authLogin">登入</div>
+      <div class="auth-tab" data-auth-tab="register" onclick="switchAuthTab('register')" data-i18n="authRegister">註冊</div>
+    </div>
+
+    <!-- 登入 -->
+    <div class="auth-form active" id="auth-form-login">
+      <div class="auth-role-select">
+        <div class="auth-role-card active" data-auth-role="employer" onclick="selectAuthRole(this,'login')">
+          <span class="icon">🏢</span> <span data-i18n="authEmployer">我是雇主</span>
+        </div>
+        <div class="auth-role-card" data-auth-role="seeker" onclick="selectAuthRole(this,'login')">
+          <span class="icon">👤</span> <span data-i18n="authSeeker">我是求職者</span>
+        </div>
+      </div>
+      <form id="login-form">
+        <div class="field">
+          <label data-i18n="authEmail">Email</label>
+          <input type="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label data-i18n="authPassword">密碼</label>
+          <input type="password" name="password" placeholder="********" required>
+        </div>
+        <button class="btn" type="submit" data-i18n="authLoginBtn">登入</button>
+        <div class="form-status" id="status-login"></div>
+      </form>
+      <div class="auth-divider" data-i18n="authOr">或</div>
+      <div class="auth-social">
+        <button class="btn" onclick="socialLogin('Google')">Google</button>
+        <button class="btn" onclick="socialLogin('Line')">Line</button>
+        <button class="btn" onclick="socialLogin('Telegram')">Telegram</button>
+      </div>
+      <div class="auth-switch">
+        <span data-i18n="authNoAccount">還沒有帳號？</span><a onclick="switchAuthTab('register')" data-i18n="authRegisterNow">立即註冊</a>
+      </div>
+    </div>
+
+    <!-- 註冊 -->
+    <div class="auth-form" id="auth-form-register">
+      <div class="auth-role-select">
+        <div class="auth-role-card active" data-auth-role="employer" onclick="selectAuthRole(this,'register')">
+          <span class="icon">🏢</span> <span data-i18n="authEmployer">我是雇主</span>
+        </div>
+        <div class="auth-role-card" data-auth-role="seeker" onclick="selectAuthRole(this,'register')">
+          <span class="icon">👤</span> <span data-i18n="authSeeker">我是求職者</span>
+        </div>
+      </div>
+      <form id="register-form">
+        <div class="field">
+          <label data-i18n="authName">公司名稱 / 姓名</label>
+          <input type="text" name="display-name" placeholder="公司名稱 或 您的姓名" required>
+        </div>
+        <div class="field">
+          <label data-i18n="authEmail">Email</label>
+          <input type="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label data-i18n="authPhone">電話</label>
+          <input type="tel" name="phone" placeholder="+855 12 345 678">
+        </div>
+        <div class="field">
+          <label data-i18n="authPassword">密碼</label>
+          <input type="password" name="password" placeholder="********" required minlength="6">
+        </div>
+        <button class="btn" type="submit" data-i18n="authRegisterBtn">註冊</button>
+        <div class="form-status" id="status-register"></div>
+      </form>
+      <div class="auth-divider" data-i18n="authOr">或</div>
+      <div class="auth-social">
+        <button class="btn" onclick="socialLogin('Google')">Google</button>
+        <button class="btn" onclick="socialLogin('Line')">Line</button>
+        <button class="btn" onclick="socialLogin('Telegram')">Telegram</button>
+      </div>
+      <div class="auth-switch">
+        <span data-i18n="authHasAccount">已經有帳號？</span><a onclick="switchAuthTab('login')" data-i18n="authLoginNow">立即登入</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Make Webhook URLs ──────────────────────────────────
+const MAKE_POST_JOB_URL = 'https://hook.eu1.make.com/rktx9522w1vklv5blq81eyux6s9kjsuw';
+const MAKE_APPLY_URL    = 'https://hook.eu1.make.com/rktx9522w1vklv5blq81eyux6s9kjsuw';
+const MAKE_AUTH_URL     = 'https://hook.eu1.make.com/rktx9522w1vklv5blq81eyux6s9kjsuw';
+// ────────────────────────────────────────────────────────
+const IS_DEMO = MAKE_POST_JOB_URL.includes('YOUR_WEBHOOK');
+
+// ── 模擬職缺資料 (三語) ────────────────────────────────
+const MOCK_JOBS = [
+  {
+    id: 'J001',
+    titleZh: '中餐廚師', titleKm: 'ចុងភៅចិន', titleEn: 'Chinese Chef',
+    companyZh: '金邊大飯店', companyKm: 'សណ្ឋាគារភ្នំពេញ', companyEn: 'Phnom Penh Hotel',
+    locationZh: '金邊', locationKm: 'ភ្នំពេញ', locationEn: 'Phnom Penh',
+    categoryZh: '餐飲服務', categoryKm: 'សេវាម្ហូបអាហារ', categoryEn: 'Food & Beverage',
+    salaryMin: 800, salaryMax: 1500, language: '中文',
+    descZh: '負責中餐熱炒烹調，有三年以上經驗佳。提供住宿及三餐。',
+    descKm: 'ទទួលខុសត្រូវចម្អិនម្ហូបចិន ត្រូវការបទពិសោធន៍ ៣ឆ្នាំឡើង។ ផ្តល់កន្លែងស្នាក់នៅ និងអាហារ។',
+    descEn: 'Responsible for Chinese stir-fry cooking. 3+ years experience preferred. Accommodation & meals provided.',
+  },
+  {
+    id: 'J002',
+    titleZh: '中文教師', titleKm: 'គ្រូបង្រៀនចិន', titleEn: 'Chinese Teacher',
+    companyZh: '柬埔寨國際學校', companyKm: 'សាលាអន្តរជាតិកម្ពុជា', companyEn: 'Cambodia International School',
+    locationZh: '暹粒', locationKm: 'សៀមរាប', locationEn: 'Siem Reap',
+    categoryZh: '翻譯/教師', categoryKm: 'បកប្រែ/បង្រៀន', categoryEn: 'Translation/Teaching',
+    salaryMin: 600, salaryMax: 1200, language: '中英文',
+    descZh: '教授小學至中學中文課程。需具備中文教學證照或相關科系畢業。',
+    descKm: 'បង្រៀនភាសាចិនថ្នាក់បឋមដល់អនុវិទ្យាល័យ។ ត្រូវការវិញ្ញាបនបត្របង្រៀនភាសាចិន។',
+    descEn: 'Teach Chinese from primary to secondary level. Teaching certification or related degree required.',
+  },
+  {
+    id: 'J003',
+    titleZh: '業務經理', titleKm: 'អ្នកគ្រប់គ្រងផ្នែកលក់', titleEn: 'Sales Manager',
+    companyZh: '柬華貿易公司', companyKm: 'ក្រុមហ៊ុនខ្មែរ-ចិនពាណិជ្ជកម្ម', companyEn: 'SinoKhmer Trading Co.',
+    locationZh: '金邊', locationKm: 'ភ្នំពេញ', locationEn: 'Phnom Penh',
+    categoryZh: '業務銷售', categoryKm: 'លក់/ទីផ្សារ', categoryEn: 'Sales/Marketing',
+    salaryMin: 1000, salaryMax: 2000, language: '中英文',
+    descZh: '負責開發柬埔寨當地市場，管理業務團隊。需有兩年以上業務經驗。',
+    descKm: 'ទទួលខុសត្រូវអភិវឌ្ឍទីផ្សារកម្ពុជា និងគ្រប់គ្រងក្រុមលក់។ ត្រូវការបទពិសោធន៍ ២ឆ្នាំឡើង។',
+    descEn: 'Responsible for developing the Cambodian market and managing the sales team. 2+ years experience required.',
+  },
+  {
+    id: 'J004',
+    titleZh: '會計專員', titleKm: 'បុគ្គលិកគណនេយ្យ', titleEn: 'Accountant',
+    companyZh: '皇家地產集團', companyKm: 'ក្រុមហ៊ុនរាជាអចលនទ្រព្យ', companyEn: 'Royal Real Estate Group',
+    locationZh: '金邊', locationKm: 'ភ្នំពេញ', locationEn: 'Phnom Penh',
+    categoryZh: '會計/財務', categoryKm: 'គណនេយ្យ/ហិរញ្ញវត្ថុ', categoryEn: 'Accounting/Finance',
+    salaryMin: 500, salaryMax: 900, language: '中文',
+    descZh: '處理帳務、報稅事宜。熟悉 QuickBooks 或中國會計系統佳。',
+    descKm: 'ទទួលខុសត្រូវគណនេយ្យ និងបង់ពន្ធ។ ចំណេះដឹង QuickBooks ឬប្រព័ន្ធគណនេយ្យចិនជាការប្រសើរ។',
+    descEn: 'Handle accounting and tax filing. Knowledge of QuickBooks or Chinese accounting systems preferred.',
+  },
+  {
+    id: 'J005',
+    titleZh: '飯店櫃檯主管', titleKm: 'ប្រធានផ្នែកទទួលភ្ញៀវ', titleEn: 'Front Desk Manager',
+    companyZh: '吳哥度假酒店', companyKm: 'សណ្ឋាគារអង្គររីសត', companyEn: 'Angkor Resort Hotel',
+    locationZh: '暹粒', locationKm: 'សៀមរាប', locationEn: 'Siem Reap',
+    categoryZh: '行政/客服', categoryKm: 'រដ្ឋបាល/សេវាកម្ម', categoryEn: 'Admin/Customer Service',
+    salaryMin: 700, salaryMax: 1100, language: '中英文',
+    descZh: '管理櫃檯團隊，處理客人入住退房事宜。英文溝通流利。',
+    descKm: 'គ្រប់គ្រងក្រុមការងារទទួលភ្ញៀវ និងរៀបចំការឆែកចូល-ចេញ។ ទំនាក់ទំនងភាសាអង់គ្លេសពូកែ។',
+    descEn: 'Manage front desk team, handle check-in/check-out. Fluent English communication skills.',
+  },
+  {
+    id: 'J006',
+    titleZh: '貨車司機', titleKm: 'អ្នកបើកបរឡានដឹកទំនិញ', titleEn: 'Truck Driver',
+    companyZh: '金邊物流運輸', companyKm: 'ក្រុមហ៊ុនដឹកជញ្ជូនភ្នំពេញ', companyEn: 'Phnom Penh Logistics',
+    locationZh: '金邊', locationKm: 'ភ្នំពេញ', locationEn: 'Phnom Penh',
+    categoryZh: '司機/物流', categoryKm: 'អ្នកបើកបរ/ដឹកជញ្ជូន', categoryEn: 'Driver/Logistics',
+    salaryMin: 400, salaryMax: 700, language: '不限',
+    descZh: '柬埔寨境內貨物運輸，需有柬埔寨汽車駕照。熟悉金邊路線。',
+    descKm: 'ដឹកជញ្ជូនទំនិញក្នុងប្រទេសកម្ពុជា ត្រូវការប័ណ្ណបើកបរកម្ពុជា។',
+    descEn: 'Domestic cargo transport within Cambodia. Valid Cambodian driver\'s license required.',
+  },
+  {
+    id: 'J007',
+    titleZh: '工地主任', titleKm: 'ប្រធានការដ្ឋាន', titleEn: 'Site Supervisor',
+    companyZh: '中柬建設公司', companyKm: 'ក្រុមហ៊ុនសំណង់ចិន-កម្ពុជា', companyEn: 'SinoKhmer Construction',
+    locationZh: '西港', locationKm: 'ព្រះសីហនុ', locationEn: 'Sihanoukville',
+    categoryZh: '工程/技術', categoryKm: 'វិស្វកម្ម/បច្ចេកទេស', categoryEn: 'Engineering/Technical',
+    salaryMin: 1200, salaryMax: 2000, language: '中英文',
+    descZh: '監督工地施工進度與品質。有營造業相關經驗五年以上。',
+    descKm: 'ត្រួតពិនិត្យវឌ្ឍនភាព និងគុណភាពការដ្ឋានសំណង់។ បទពិសោធន៍ ៥ឆ្នាំឡើង។',
+    descEn: 'Supervise construction progress and quality. 5+ years experience in construction industry.',
+  },
+  {
+    id: 'J008',
+    titleZh: '餐廳外場服務員', titleKm: 'អ្នកបម្រើសាល', titleEn: 'Restaurant Server',
+    companyZh: '華人美食街', companyKm: 'ផ្លូវម្ហូបចិន', companyEn: 'Chinese Food Street',
+    locationZh: '金邊', locationKm: 'ភ្នំពេញ', locationEn: 'Phnom Penh',
+    categoryZh: '餐飲服務', categoryKm: 'សេវាម្ហូបអាហារ', categoryEn: 'Food & Beverage',
+    salaryMin: 300, salaryMax: 500, language: '中文',
+    descZh: '負責點餐、送餐、清潔。無經驗可，供餐。',
+    descKm: 'ទទួលការបញ្ជាទិញ បម្រើអាហារ និងសម្អាត។ គ្មានបទពិសោធន៍ក៏អាចដាក់ពាក្យបាន។',
+    descEn: 'Take orders, serve food, and clean. No experience needed. Meals provided.',
+  },
+];
+
+// ── 頁面切換 ────────────────────────────────────────────
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navLink = document.querySelector(`.nav a[data-page="${name}"]`);
+  if (navLink) navLink.classList.add('active');
+  if (name === 'jobs') renderJobs();
+  if (name === 'home') renderHomeJobs();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function ml(j, field) {
+  return { zh: j[field + 'Zh'], km: j[field + 'Km'], en: j[field + 'En'] };
+}
+
+function renderJobCard(j) {
+  const t = ml(j, 'title');
+  const c = ml(j, 'company');
+  const l = ml(j, 'location');
+  const ct = ml(j, 'category');
+  return `
+    <div class="job-card" onclick="openJobModal('${j.id}')">
+      <div class="company">${c.zh} <span class="ml-sub">/ ${c.en} / ${c.km}</span></div>
+      <h3>${t.zh}</h3>
+      <div class="ml-sub">${t.en} / ${t.km}</div>
+      <div class="meta">
+        <span>📍 ${l.zh} <span class="ml-sub">/ ${l.en} / ${l.km}</span></span>
+        <span class="salary">$${j.salaryMin} ~ $${j.salaryMax}</span>
+      </div>
+      <div class="tags"><span>${ct.zh}</span><span>${j.language}</span></div>
+    </div>
+  `;
+}
+
+// ── 渲染職缺 ────────────────────────────────────────────
+function renderJobs() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const cat = document.getElementById('filter-category').value;
+  const loc = document.getElementById('filter-location').value;
+
+  const filtered = MOCK_JOBS.filter(j => {
+    const t = ml(j, 'title'); const c = ml(j, 'company'); const l = ml(j, 'location');
+    const allText = (t.zh + t.en + t.km + c.zh + c.en + c.km).toLowerCase();
+    if (q && !allText.includes(q)) return false;
+    if (cat && j.categoryZh !== cat && j.categoryEn !== cat && j.categoryKm !== cat) return false;
+    if (loc && j.locationZh !== loc && j.locationEn !== loc && j.locationKm !== loc) return false;
+    return true;
+  });
+
+  const container = document.getElementById('job-list-container');
+  const empty = document.getElementById('job-empty');
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = filtered.map(renderJobCard).join('');
+}
+
+function renderHomeJobs() {
+  const container = document.getElementById('home-job-list');
+  container.innerHTML = MOCK_JOBS.slice(0, 4).map(renderJobCard).join('');
+}
+
+// ── 職缺詳情彈窗 ──────────────────────────────────────
+function openJobModal(id) {
+  const j = MOCK_JOBS.find(x => x.id === id);
+  if (!j) return;
+  const t = ml(j, 'title'); const c = ml(j, 'company'); const l = ml(j, 'location');
+  const ct = ml(j, 'category'); const d = ml(j, 'desc');
+  document.getElementById('modal-title').innerHTML = `${t.zh}<br><span style="font-size:14px;font-weight:400;color:var(--text2)">${t.en} / ${t.km}</span>`;
+  document.getElementById('modal-company').innerHTML = `${c.zh} / ${c.en} / ${c.km}`;
+  document.getElementById('modal-location').textContent = `${l.zh} / ${l.en} / ${l.km}`;
+  document.getElementById('modal-category').textContent = `${ct.zh} / ${ct.en} / ${ct.km}`;
+  document.getElementById('modal-salary').textContent = `$${j.salaryMin} ~ $${j.salaryMax}`;
+  document.getElementById('modal-language').textContent = j.language;
+  document.getElementById('modal-desc').innerHTML = `
+    <div style="margin-bottom:8px;"><strong>中文</strong><br>${d.zh}</div>
+    <div style="margin-bottom:8px;"><strong>English</strong><br>${d.en}</div>
+    <div><strong>ភាសាខ្មែរ</strong><br>${d.km}</div>
+  `;
+  document.getElementById('job-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeJobModal() {
+  document.getElementById('job-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('job-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeJobModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeJobModal();
+});
+
+// ── Auth 狀態 ────────────────────────────────────────────
+let currentUser = null;
+
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  resetAuthForms();
+}
+
+document.getElementById('auth-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeAuthModal();
+});
+
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  document.querySelector(`.auth-tab[data-auth-tab="${tab}"]`).classList.add('active');
+  document.getElementById(`auth-form-${tab}`).classList.add('active');
+  resetAuthForms();
+}
+
+function selectAuthRole(el, tab) {
+  el.closest('.auth-role-select').querySelectorAll('.auth-role-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function resetAuthForms() {
+  document.querySelectorAll('.auth-form .form-status').forEach(el => { el.className = 'form-status'; el.textContent = ''; });
+}
+
+function socialLogin(provider) {
+  const role = document.querySelector(`#auth-form-${document.querySelector('.auth-tab.active').dataset.authTab} .auth-role-card.active`)?.dataset.authRole || 'seeker';
+  setAuthStatus('success', `${provider} ${currentLang === 'km' ? 'បានចូល' : '登入成功'}`);
+  setTimeout(() => {
+    finishLogin({ name: provider + ' 用戶', role });
+  }, 600);
+}
+
+function setAuthStatus(type, msg) {
+  const activeForm = document.querySelector('.auth-form.active');
+  const el = activeForm?.querySelector('.form-status');
+  if (!el) return;
+  el.className = 'form-status visible ' + type;
+  el.textContent = msg;
+}
+
+// ── 登入送出 ────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const role = document.querySelector('#auth-form-login .auth-role-card.active')?.dataset.authRole || 'seeker';
+      const email = loginForm.querySelector('[name="email"]').value.trim();
+      const password = loginForm.querySelector('[name="password"]').value;
+      if (!email || !password) { setAuthStatus('error', t('authFillEmail')); return; }
+
+      setAuthStatus('loading', t('authLoggingIn'));
+      try {
+        const res = IS_DEMO ? { ok: true } : await fetch(MAKE_AUTH_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'login', role, email, password }),
+        });
+        if (res.ok) {
+          setAuthStatus('success', t('authLoginSuccess'));
+          setTimeout(() => finishLogin({ name: email, role }), 500);
+        } else {
+          setAuthStatus('error', t('authLoginFail'));
+        }
+      } catch {
+        setAuthStatus('success', t('authLoginSuccess'));
+        setTimeout(() => finishLogin({ name: email, role }), 500);
+      }
+    });
+  }
+
+  const registerForm = document.getElementById('register-form');
+  if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const role = document.querySelector('#auth-form-register .auth-role-card.active')?.dataset.authRole || 'seeker';
+      const displayName = registerForm.querySelector('[name="display-name"]').value.trim();
+      const email = registerForm.querySelector('[name="email"]').value.trim();
+      const phone = registerForm.querySelector('[name="phone"]').value.trim();
+      const password = registerForm.querySelector('[name="password"]').value;
+      if (!displayName || !email || !password) { setAuthStatus('error', t('authFillFields')); return; }
+
+      setAuthStatus('loading', t('authRegistering'));
+      try {
+        const res = IS_DEMO ? { ok: true } : await fetch(MAKE_AUTH_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'register', role, displayName, email, phone, password }),
+        });
+        if (res.ok) {
+          setAuthStatus('success', t('authRegisterSuccess'));
+          setTimeout(() => finishLogin({ name: displayName, role }), 500);
+        } else {
+          setAuthStatus('error', t('authRegisterFail'));
+        }
+      } catch {
+        setAuthStatus('success', t('authRegisterSuccess'));
+        setTimeout(() => finishLogin({ name: displayName, role }), 500);
+      }
+    });
+  }
+});
+
+function finishLogin(user) {
+  currentUser = user;
+  document.getElementById('auth-btn').style.display = 'none';
+  const el = document.getElementById('auth-user');
+  el.style.display = 'flex';
+  document.getElementById('auth-avatar').textContent = user.name.charAt(0);
+  const roleMap = { zh: { employer: '雇主', seeker: '求職者' }, km: { employer: 'និយោជក', seeker: 'អ្នកស្វែងរកការងារ' }, en: { employer: 'Employer', seeker: 'Job Seeker' } };
+  const roleLabel = '(' + (roleMap[currentLang]?.[user.role] || roleMap['zh'][user.role]) + ')';
+  document.getElementById('auth-name').textContent = user.name + ' ' + roleLabel;
+  closeAuthModal();
+}
+
+function logout() {
+  currentUser = null;
+  document.getElementById('auth-btn').style.display = '';
+  document.getElementById('auth-user').style.display = 'none';
+}
+
+// ── i18n 多語系 ──────────────────────────────────────────
+const LANG = {
+  zh: {
+    brand: '柬華<span>職場</span>',
+    navHome: '首頁', navJobs: '職缺列表', navPost: '刊登職缺', navAbout: '關於柬華',
+    authBtn: '註冊 / 登入',
+    heroTitle: '柬埔寨華人<br><span>求職求才</span>第一平台',
+    heroDesc: '全中文介面，免費刊登職缺、瀏覽工作機會<br>連接柬埔寨與華人求職者的最佳橋樑',
+    heroRegister: '免費註冊', heroPostJob: '刊登職缺', heroBrowse: '瀏覽職缺',
+    statJobs: '已刊登職缺', statSeekers: '註冊求職者', statEmployers: '合作雇主',
+    howTitle: '如何使用柬華職場',
+    how1Title: '註冊帳號', how1Desc: '雇主或求職者免費註冊，1 分鐘完成',
+    how2Title: '刊登或應徵', how2Desc: '雇主刊登職缺，求職者投遞履歷',
+    how3Title: '快速配對', how3Desc: '系統自動通知，縮短招募時間',
+    employerTitle: '我是雇主', employerDesc: '刊登職缺、尋找人才', employerBtn: '雇主註冊',
+    seekerTitle: '我是求職者', seekerDesc: '瀏覽職缺、投遞履歷', seekerBtn: '求職者註冊',
+    viewAll: '查看所有職缺 →',
+    jobsTitle: '職缺列表', jobsDesc: '瀏覽柬埔寨最新華人工作機會',
+    searchPlaceholder: '搜尋職缺名稱、公司…',
+    filterAll: '全部分類', filterLocation: '全部地點',
+    noJobs: '沒有符合條件的職缺',
+    postTitle: '刊登職缺', postDesc: '柬埔寨地區華人企業專用，審核後 24 小時內上架',
+    postBadge: '雇主刊登', postFormTitle: '填寫職缺資訊', postFormDesc: '以下資訊將公開顯示，請務必填寫正確',
+    applyBadge: '求職者投遞', applyTitle: '應徵職缺', applyDesc: '已有指定的職缺編號，直接投遞履歷',
+    aboutTitle: '關於柬華職場', aboutSub: 'Connecting Cambodia & Chinese Talent',
+    aboutMission: '我們的使命',
+    aboutMissionText: '柬華職場是柬埔寨第一個專為華人社群打造的求職求才平台。我們致力於連結柬埔寨當地企業與華語人才，讓求職者輕鬆找到合適的工作，也讓雇主快速找到優秀的員工。',
+    aboutWhy: '為什麼選擇柬華職場',
+    aboutWhyText: '全中文操作介面，降低使用門檻。無論你是來自中國、台灣、馬來西亞或新加坡的華人，還是在柬埔寨當地學習中文的求職者，都能輕鬆使用。我們提供免費刊登職缺、智能配對通知、以及即時的求職求才服務。',
+    aboutContact: '聯絡我們',
+    aboutCTA: '立即加入柬華職場', aboutCTADesc: '無論是尋找人才還是尋找工作，我們都能幫你',
+    authLogin: '登入', authRegister: '註冊',
+    authEmployer: '我是雇主', authSeeker: '我是求職者',
+    authEmployerIcon: '🏢', authSeekerIcon: '👤',
+    authEmail: 'Email', authPassword: '密碼',
+    authLoginBtn: '登入', authRegisterBtn: '註冊',
+    authName: '公司名稱 / 姓名', authPhone: '電話',
+    authOr: '或',
+    authNoAccount: '還沒有帳號？', authHasAccount: '已經有帳號？',
+    authRegisterNow: '立即註冊', authLoginNow: '立即登入',
+    authFillFields: '請填寫必填欄位', authFillEmail: '請填寫 Email 與密碼',
+    authLoggingIn: '登入中…', authRegistering: '註冊中…',
+    authLoginSuccess: '登入成功！', authRegisterSuccess: '註冊成功！',
+    authLoginFail: 'Email 或密碼錯誤', authRegisterFail: '註冊失敗，Email 可能已被使用',
+    logout: '登出',
+    submitPost: '送出刊登', submitApply: '送出應徵',
+    applyNow: '立即應徵',
+    companyName: '公司名稱', industry: '產業類別', contactEmail: '聯絡 Email',
+    contactPhone: '聯絡電話', jobTitle: '職缺名稱', category: '分類',
+    location: '工作地點', salaryMin: '薪資下限 (USD)', salaryMax: '薪資上限 (USD)',
+    language: '語言要求', description: '職缺描述', plan: '刊登方案',
+    fullName: '姓名', email: 'Email', phone: '手機',
+    resumeUrl: '履歷連結', coverNote: '求職信 / 備註',
+    postSuccess: '✓ 職缺已送出！我們將在 24 小時內審核上架。',
+    postError: '✗ 送出失敗，請稍後再試或直接 Email 我們。',
+    applySuccess: '✓ 應徵已送出！你將收到確認信。',
+    applyError: '✗ 送出失敗，請稍後再試。',
+    applyNoJobId: '✗ 職缺編號遺失，請重新整理頁面。',
+    sending: '傳送中…',
+    footer: '柬華職場 © 2026 — 柬埔寨華人求職求才平台',
+    detailLoc: '地點', detailCat: '分類', detailSal: '薪資', detailLang: '語言',
+    from: '從',
+    companyPlaceholder: '例如：柬華貿易有限公司',
+    searchCat: '全部分類',
+    phnomPenh: '金邊', sihanoukville: '西港', siemReap: '暹粒', battambang: '馬德望', other: '其他',
+  },
+  km: {
+    brand: 'ខ្មែរ-ចិន<span>ការងារ</span>',
+    navHome: 'ទំព័រដើម', navJobs: 'បញ្ជីការងារ', navPost: 'ផ្សាយការងារ', navAbout: 'អំពីយើង',
+    authBtn: 'ចុះឈ្មោះ / ចូល',
+    heroTitle: 'វេទិកាការងារ<br><span>ខ្មែរ-ចិន</span> លេខ១',
+    heroDesc: 'ចំណុចប្រទាក់ជាភាសាចិន ផ្សាយការងារឥតគិតថ្លៃ<br>តភ្ជាប់កម្ពុជា និងអ្នកស្វែងរកការងារជនជាតិចិន',
+    heroRegister: 'ចុះឈ្មោះឥតគិតថ្លៃ', heroPostJob: 'ផ្សាយការងារ', heroBrowse: 'មើលការងារ',
+    statJobs: 'ការងារដែលបានផ្សាយ', statSeekers: 'អ្នកស្វែងរកការងារ', statEmployers: 'និយោជក',
+    howTitle: 'របៀបប្រើប្រាស់',
+    how1Title: 'ចុះឈ្មោះ', how1Desc: 'និយោជក ឬអ្នកស្វែងរកការងារ ចុះឈ្មោះឥតគិតថ្លៃ',
+    how2Title: 'ផ្សាយ ឬដាក់ពាក្យ', how2Desc: 'និយោជកផ្សាយការងារ អ្នកស្វែងរកការងារដាក់ពាក្យ',
+    how3Title: 'ផ្គូផ្គងរហ័ស', how3Desc: 'ប្រព័ន្ធជូនដំណឹងដោយស្វ័យប្រវត្តិ',
+    employerTitle: 'ខ្ញុំជានិយោជក', employerDesc: 'ផ្សាយការងារ ស្វែងរកបុគ្គលិក', employerBtn: 'ចុះឈ្មោះនិយោជក',
+    seekerTitle: 'ខ្ញុំជាអ្នកស្វែងរកការងារ', seekerDesc: 'មើលការងារ ដាក់ពាក្យ', seekerBtn: 'ចុះឈ្មោះអ្នកស្វែងរកការងារ',
+    viewAll: 'មើលការងារទាំងអស់ →',
+    jobsTitle: 'បញ្ជីការងារ', jobsDesc: 'រុករកការងារថ្មីៗសម្រាប់ជនជាតិចិននៅកម្ពុជា',
+    searchPlaceholder: 'ស្វែងរកតាមឈ្មោះការងារ ឬក្រុមហ៊ុន…',
+    filterAll: 'គ្រប់ប្រភេទ', filterLocation: 'គ្រប់ទីតាំង',
+    noJobs: 'គ្មានការងារដែលត្រូវនឹងលក្ខខណ្ឌ',
+    postTitle: 'ផ្សាយការងារ', postDesc: 'សម្រាប់សហគ្រាសជនជាតិចិននៅកម្ពុជា ពិនិត្យរួចផ្សាយក្នុងរយៈពេល ២៤ ម៉ោង',
+    postBadge: 'និយោជក', postFormTitle: 'បំពេញព័ត៌មានការងារ', postFormDesc: 'ព័ត៌មានខាងក្រោមនឹងបង្ហាញជាសាធារណៈ',
+    applyBadge: 'អ្នកស្វែងរកការងារ', applyTitle: 'ដាក់ពាក្យសុំការងារ', applyDesc: 'មានលេខសម្គាល់ការងាររួចហើយ ដាក់ពាក្យដោយផ្ទាល់',
+    aboutTitle: 'អំពីយើង', aboutSub: 'តភ្ជាប់កម្ពុជា និងអ្នកមានទេពកោសល្យចិន',
+    aboutMission: 'បេសកកម្មរបស់យើង',
+    aboutMissionText: 'ខ្មែរ-ចិន ការងារ គឺជាវេទិកាស្វែងរកការងារដំបូងគេនៅកម្ពុជា ដែលបង្កើតឡើងសម្រាប់សហគមន៍ចិន។ យើងភ្ជាប់សហគ្រាសកម្ពុជាជាមួយអ្នកមានទេពកោសល្យចិន។',
+    aboutWhy: 'ហេតុអ្វីជ្រើសរើសយើង',
+    aboutWhyText: 'ចំណុចប្រទាក់ជាភាសាចិនទាំងស្រុង ងាយស្រួលប្រើ។ មិនថាអ្នកមកពីចិន តៃវ៉ាន់ ម៉ាឡេស៊ី ឬសិង្ហបុរី ឬជាអ្នកស្វែងរកការងារដែលរៀនភាសាចិននៅកម្ពុជា អ្នកអាចប្រើបានយ៉ាងងាយស្រួល។',
+    aboutContact: 'ទំនាក់ទំនងយើង',
+    aboutCTA: 'ចូលរួមជាមួយយើងឥឡូវនេះ', aboutCTADesc: 'មិនថាអ្នកកំពុងស្វែងរកបុគ្គលិក ឬការងារ យើងអាចជួយអ្នកបាន',
+    authLogin: 'ចូល', authRegister: 'ចុះឈ្មោះ',
+    authEmployer: 'ខ្ញុំជានិយោជក', authSeeker: 'ខ្ញុំជាអ្នកស្វែងរកការងារ',
+    authEmployerIcon: '🏢', authSeekerIcon: '👤',
+    authEmail: 'អ៊ីមែល', authPassword: 'ពាក្យសម្ងាត់',
+    authLoginBtn: 'ចូល', authRegisterBtn: 'ចុះឈ្មោះ',
+    authName: 'ឈ្មោះក្រុមហ៊ុន / ឈ្មោះ', authPhone: 'ទូរស័ព្ទ',
+    authOr: 'ឬ',
+    authNoAccount: 'មិនទាន់មានគណនី?', authHasAccount: 'មានគណនីរួចហើយ?',
+    authRegisterNow: 'ចុះឈ្មោះឥឡូវនេះ', authLoginNow: 'ចូលឥឡូវនេះ',
+    authFillFields: 'សូមបំពេញព័ត៌មានដែលត្រូវការ',
+    authFillEmail: 'សូមបំពេញអ៊ីមែល និងពាក្យសម្ងាត់',
+    authLoggingIn: 'កំពុងចូល…', authRegistering: 'កំពុងចុះឈ្មោះ…',
+    authLoginSuccess: 'ចូលបានជោគជ័យ!', authRegisterSuccess: 'ចុះឈ្មោះបានជោគជ័យ!',
+    authLoginFail: 'អ៊ីមែល ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ',
+    authRegisterFail: 'ចុះឈ្មោះមិនបានសម្រេច អ៊ីមែលអាចត្រូវបានប្រើរួចហើយ',
+    logout: 'ចាកចេញ',
+    submitPost: 'ផ្សាយការងារ', submitApply: 'ដាក់ពាក្យ',
+    applyNow: 'ដាក់ពាក្យឥឡូវនេះ',
+    companyName: 'ឈ្មោះក្រុមហ៊ុន', industry: 'ប្រភេទឧស្សាហកម្ម', contactEmail: 'អ៊ីមែលទំនាក់ទំនង',
+    contactPhone: 'ទូរស័ព្ទទំនាក់ទំនង', jobTitle: 'ឈ្មោះការងារ', category: 'ប្រភេទ',
+    location: 'ទីតាំង', salaryMin: 'ប្រាក់ខែអប្បបរមា (USD)', salaryMax: 'ប្រាក់ខែអតិបរមា (USD)',
+    language: 'ភាសា', description: 'ការពិពណ៌នា', plan: 'កញ្ចប់',
+    fullName: 'ឈ្មោះពេញ', email: 'អ៊ីមែល', phone: 'ទូរស័ព្ទ',
+    resumeUrl: 'តំណភ្ជាប់ប្រវត្តិរូប', coverNote: 'លិខិតភ្ជាប់ / កំណត់ចំណាំ',
+    postSuccess: '✓ ការងារត្រូវបានផ្ញើ! យើងនឹងពិនិត្យរួចផ្សាយក្នុងរយៈពេល ២៤ ម៉ោង។',
+    postError: '✗ ការផ្ញើបរាជ័យ សូមព្យាយាមម្តងទៀត។',
+    applySuccess: '✓ ពាក្យសុំត្រូវបានផ្ញើ! អ្នកនឹងទទួលបានអ៊ីមែលបញ្ជាក់។',
+    applyError: '✗ ការផ្ញើបរាជ័យ សូមព្យាយាមម្តងទៀត។',
+    applyNoJobId: '✗ អត្តលេខការងារបាត់ សូមផ្ទុកទំព័រឡើងវិញ។',
+    sending: 'កំពុងផ្ញើ…',
+    footer: 'ខ្មែរ-ចិន ការងារ © 2026 — វេទិកាការងារខ្មែរ-ចិន',
+    detailLoc: 'ទីតាំង', detailCat: 'ប្រភេទ', detailSal: 'ប្រាក់ខែ', detailLang: 'ភាសា',
+    from: 'ពី',
+    companyPlaceholder: 'ឧទាហរណ៍៖ ក្រុមហ៊ុន ខ្មែរ-ចិន ពាណិជ្ជកម្ម',
+    searchCat: 'គ្រប់ប្រភេទ',
+    phnomPenh: 'ភ្នំពេញ', sihanoukville: 'ព្រះសីហនុ', siemReap: 'សៀមរាប', battambang: 'បាត់ដំបង', other: 'ផ្សេងៗ',
+  },
+  en: {
+    brand: 'Sino<span>Khmer</span> Jobs',
+    navHome: 'Home', navJobs: 'Jobs', navPost: 'Post Job', navAbout: 'About',
+    authBtn: 'Register / Login',
+    heroTitle: 'Cambodia\'s #1<br><span>Job Platform</span> for Chinese Speakers',
+    heroDesc: 'Fully Chinese interface, free job posting & browsing<br>Bridging Cambodia & Chinese-speaking talent',
+    heroRegister: 'Free Register', heroPostJob: 'Post a Job', heroBrowse: 'Browse Jobs',
+    statJobs: 'Jobs Posted', statSeekers: 'Job Seekers', statEmployers: 'Employers',
+    howTitle: 'How It Works',
+    how1Title: 'Create Account', how1Desc: 'Employers & job seekers register free in 1 minute',
+    how2Title: 'Post or Apply', how2Desc: 'Employers post jobs, seekers submit applications',
+    how3Title: 'Fast Match', how3Desc: 'Auto notifications shorten hiring time',
+    employerTitle: 'I\'m an Employer', employerDesc: 'Post jobs & find talent', employerBtn: 'Employer Register',
+    seekerTitle: 'I\'m a Job Seeker', seekerDesc: 'Browse jobs & apply', seekerBtn: 'Seeker Register',
+    viewAll: 'View All Jobs →',
+    jobsTitle: 'Job Listings', jobsDesc: 'Browse the latest jobs for Chinese speakers in Cambodia',
+    searchPlaceholder: 'Search by job title or company…',
+    filterAll: 'All Categories', filterLocation: 'All Locations',
+    noJobs: 'No matching jobs found',
+    postTitle: 'Post a Job', postDesc: 'For Chinese enterprises in Cambodia — reviewed & posted within 24h',
+    postBadge: 'Employer', postFormTitle: 'Job Details', postFormDesc: 'The info below will be shown publicly',
+    applyBadge: 'Job Seeker', applyTitle: 'Apply for Job', applyDesc: 'Have a job ID? Apply directly',
+    aboutTitle: 'About Us', aboutSub: 'Connecting Cambodia & Chinese Talent',
+    aboutMission: 'Our Mission',
+    aboutMissionText: 'SinoKhmer Jobs is Cambodia\'s first job platform built for the Chinese-speaking community. We connect Cambodian enterprises with Chinese-speaking talent.',
+    aboutWhy: 'Why Choose Us',
+    aboutWhyText: 'Fully Chinese interface, easy to use. Whether you\'re from China, Taiwan, Malaysia, Singapore, or a local Chinese learner in Cambodia, you can use our platform with ease.',
+    aboutContact: 'Contact Us',
+    aboutCTA: 'Join SinoKhmer Jobs Now', aboutCTADesc: 'Whether you\'re hiring or looking for a job, we can help',
+    authLogin: 'Login', authRegister: 'Register',
+    authEmployer: 'I\'m an Employer', authSeeker: 'I\'m a Job Seeker',
+    authEmployerIcon: '🏢', authSeekerIcon: '👤',
+    authEmail: 'Email', authPassword: 'Password',
+    authLoginBtn: 'Login', authRegisterBtn: 'Register',
+    authName: 'Company / Full Name', authPhone: 'Phone',
+    authOr: 'or',
+    authNoAccount: 'No account yet?', authHasAccount: 'Already have an account?',
+    authRegisterNow: 'Register now', authLoginNow: 'Login now',
+    authFillFields: 'Please fill in required fields',
+    authFillEmail: 'Please enter email & password',
+    authLoggingIn: 'Logging in…', authRegistering: 'Registering…',
+    authLoginSuccess: 'Login successful!', authRegisterSuccess: 'Registration successful!',
+    authLoginFail: 'Incorrect email or password',
+    authRegisterFail: 'Registration failed, email may already be in use',
+    logout: 'Logout',
+    submitPost: 'Submit Job', submitApply: 'Submit Application',
+    applyNow: 'Apply Now',
+    companyName: 'Company Name', industry: 'Industry', contactEmail: 'Contact Email',
+    contactPhone: 'Contact Phone', jobTitle: 'Job Title', category: 'Category',
+    location: 'Location', salaryMin: 'Min Salary (USD)', salaryMax: 'Max Salary (USD)',
+    language: 'Language', description: 'Description', plan: 'Plan',
+    fullName: 'Full Name', email: 'Email', phone: 'Phone',
+    resumeUrl: 'Resume Link', coverNote: 'Cover Letter / Notes',
+    postSuccess: '✓ Job submitted! We will review and post within 24 hours.',
+    postError: '✗ Submission failed. Please try again or email us.',
+    applySuccess: '✓ Application sent! You will receive a confirmation email.',
+    applyError: '✗ Submission failed. Please try again.',
+    applyNoJobId: '✗ Job ID missing. Please refresh the page.',
+    sending: 'Sending…',
+    footer: 'SinoKhmer Jobs © 2026 — Cambodia\'s Job Platform for Chinese Speakers',
+    detailLoc: 'Location', detailCat: 'Category', detailSal: 'Salary', detailLang: 'Language',
+    from: 'from',
+    companyPlaceholder: 'e.g. SinoKhmer Trading Co.',
+    searchCat: 'All Categories',
+    phnomPenh: 'Phnom Penh', sihanoukville: 'Sihanoukville', siemReap: 'Siem Reap', battambang: 'Battambang', other: 'Other',
+  }
+};
+
+let currentLang = 'zh';
+
+function t(key) {
+  return LANG[currentLang][key] || LANG['zh'][key] || key;
+}
+
+function switchLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.documentElement.lang = lang === 'km' ? 'km' : lang === 'en' ? 'en' : 'zh-Hant';
+  translatePage();
+  renderJobs();
+  renderHomeJobs();
+}
+
+function translatePage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const translation = t(key);
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = translation;
+    } else if (el.tagName === 'OPTION') {
+      el.textContent = translation;
+    } else {
+      el.innerHTML = translation;
+    }
+  });
+  if (currentUser) {
+    const roleMap = { zh: { employer: '雇主', seeker: '求職者' }, km: { employer: 'និយោជក', seeker: 'អ្នកស្វែងរកការងារ' }, en: { employer: 'Employer', seeker: 'Job Seeker' } };
+    const roleLabel = '(' + (roleMap[currentLang]?.[currentUser.role] || roleMap['zh'][currentUser.role]) + ')';
+    document.getElementById('auth-name').textContent = currentUser.name + ' ' + roleLabel;
+  }
+}
+
+// ── 表單工具 ────────────────────────────────────────────
+function getVal(form, name) {
+  const el = form.querySelector(`[name="${name}"]`);
+  return el ? el.value.trim() : '';
+}
+
+function setStatus(id, type, msg = '') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'form-status visible ' + type;
+  const msgs = { loading: t('sending') };
+  el.textContent = msg || msgs[type] || '';
+}
+
+// ── Scenario B：刊登職缺 ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('[data-name="post-job"]');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.querySelector('.btn').disabled) return;
+
+    const data = {
+      companyName:  getVal(form, 'company-name'),
+      industry:     getVal(form, 'industry'),
+      contactEmail: getVal(form, 'contact-email'),
+      contactPhone: getVal(form, 'contact-phone'),
+      jobTitle:     getVal(form, 'job-title'),
+      category:     getVal(form, 'category'),
+      location:     getVal(form, 'location'),
+      salaryMin:    getVal(form, 'salary-min'),
+      salaryMax:    getVal(form, 'salary-max'),
+      language:     getVal(form, 'job-language'),
+      description:  getVal(form, 'job-description'),
+      plan:         getVal(form, 'plan'),
+      submittedAt:  new Date().toISOString(),
+    };
+
+    const btn = form.querySelector('.btn');
+    btn.disabled = true;
+    setStatus('status-b', 'loading');
+
+    try {
+      const res = IS_DEMO ? { ok: true } : await fetch(MAKE_POST_JOB_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        setStatus('status-b', 'success', t('postSuccess'));
+        form.reset();
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      setStatus('status-b', 'error', t('postError'));
+      console.error('Post job webhook error:', err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+});
+
+// ── Scenario C：應徵職缺 ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('[data-name="apply-job"]');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.querySelector('.btn').disabled) return;
+
+    const jobId = getVal(form, 'job-id');
+    if (!jobId) {
+      setStatus('status-c', 'error', t('applyNoJobId'));
+      return;
+    }
+
+    const data = {
+      jobId,
+      fullName:  getVal(form, 'full-name'),
+      email:     getVal(form, 'email'),
+      phone:     getVal(form, 'phone'),
+      resumeUrl: getVal(form, 'resume-url'),
+      coverNote: getVal(form, 'cover-note'),
+      appliedAt: new Date().toISOString(),
+    };
+
+    const btn = form.querySelector('.btn');
+    btn.disabled = true;
+    setStatus('status-c', 'loading');
+
+    try {
+      const res = IS_DEMO ? { ok: true } : await fetch(MAKE_APPLY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        setStatus('status-c', 'success', t('applySuccess'));
+        form.reset();
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      setStatus('status-c', 'error', t('applyError'));
+      console.error('Apply webhook error:', err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+});
+
+// ── 初始化 ──────────────────────────────────────────────
+renderHomeJobs();
+</script>
+</body>
+</html>
